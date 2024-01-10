@@ -4,31 +4,44 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "disquera")
-public class Disquera {
-
+@Table(name = "SubGenero")
+public class SubGenero {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name ="idDisquera")
-    private Long idDisquera;
+    private Long idSubGenero;
 
     @Column(name = "descripcion")
     private String descripcion;
 
-    @Column(name="fechaCreacion")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "idGenero")
+    private Genero genero;
+
+    @Column(name = "fechaCreacion")
     private LocalDateTime fechaCreacion;
+
 
     @Column(name ="fechaModificacion")
     private LocalDateTime fechaModificacion;
-    @Column(name ="estatus")
+
+    @Column(name = "estatus")
     private boolean status;
 
-    public Long getIdDisquera() {
-        return idDisquera;
+    public Genero getGenero() {
+        return genero;
     }
 
-    public void setIdDisquera(Long idDisquera) {
-        this.idDisquera = idDisquera;
+    public void setGenero(Genero genero) {
+        this.genero = genero;
+    }
+
+
+    public LocalDateTime getFechaModificacion() {
+        return fechaModificacion;
+    }
+
+    public void setFechaModificacion(LocalDateTime fechaModificacion) {
+        this.fechaModificacion = fechaModificacion;
     }
 
     public String getDescripcion() {
@@ -45,14 +58,6 @@ public class Disquera {
 
     public void setFechaCreacion(LocalDateTime fechaCreacion) {
         this.fechaCreacion = fechaCreacion;
-    }
-
-    public LocalDateTime getFechaModificacion() {
-        return fechaModificacion;
-    }
-
-    public void setFechaModificacion(LocalDateTime fechaModificacion) {
-        this.fechaModificacion = fechaModificacion;
     }
 
     public boolean isStatus() {

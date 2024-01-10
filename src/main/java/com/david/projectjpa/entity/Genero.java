@@ -4,31 +4,31 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "disquera")
-public class Disquera {
+@Table(name = "genero")
+public class Genero {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name ="idDisquera")
-    private Long idDisquera;
+    private Long idGenero;
 
     @Column(name = "descripcion")
     private String descripcion;
 
-    @Column(name="fechaCreacion")
+    @Column(name = "fechaCreacion")
     private LocalDateTime fechaCreacion;
 
     @Column(name ="fechaModificacion")
     private LocalDateTime fechaModificacion;
-    @Column(name ="estatus")
+
+    @Column(name = "estatus")
     private boolean status;
 
-    public Long getIdDisquera() {
-        return idDisquera;
+    public Long getIdGenero() {
+        return idGenero;
     }
 
-    public void setIdDisquera(Long idDisquera) {
-        this.idDisquera = idDisquera;
+    public void setIdGenero(Long idGenero) {
+        this.idGenero = idGenero;
     }
 
     public String getDescripcion() {
