@@ -3,10 +3,8 @@ package com.david.projectjpa.dao.impl;
 import com.david.projectjpa.dao.SubGeneroDAO;
 import com.david.projectjpa.entity.SubGenero;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.TypedQuery;
+import javax.persistence.*;
+import java.lang.reflect.Type;
 import java.util.List;
 
 public class SubGeneroDAOImpl implements SubGeneroDAO {
@@ -16,20 +14,74 @@ public class SubGeneroDAOImpl implements SubGeneroDAO {
     @Override
     public void save(SubGenero subGenero) {
 
+        EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
+        EntityTransaction et = em.getTransaction();
+        et.begin();
+
+        try {
+            em.persist(subGenero);
+            et.commit();
+        }catch (Exception e ){
+            et.rollback();
+            System.out.printf("Error al realizar la inserción.");
+        }finally{
+            em.close();
+        }
+
     }
 
     @Override
     public void update(SubGenero subGenero) {
+        EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
+        EntityTransaction et = em.getTransaction();
+        et.begin();
+
+        try {
+            em.merge(subGenero);
+            et.commit();
+        }catch (Exception e ){
+            et.rollback();
+            System.out.printf("Error al realizar la inserción.");
+        }finally{
+            em.close();
+        }
+    }
+
+    @Override
+    public void delete(Long id) {
+        EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
+
+        SubGenero  resultSubGenero = em.find(SubGenero.class, id);
+
+        if (resultSubGenero != null){
+            EntityTransaction et = em.getTransaction();
+            et.begin();
+
+            try{
+                em.remove(resultSubGenero);
+                et.commit();
+            }catch (Exception e){
+                et.rollback();
+                System.out.println("Entidad no encontrada");
+            }finally{
+                em.close();
+            }
+
+        }
 
     }
 
     @Override
-    public void delete(SubGenero subGenero) {
+    public SubGenero findById(Long id) {
+        EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
 
-    }
+        SubGenero result = em.find(SubGenero.class,id);
 
-    @Override
-    public void findById(Long id) {
+        if(result == null){
+            throw new EntityNotFoundException("No se encontro la entidad");
+        }
+
+        return result;
 
     }
 

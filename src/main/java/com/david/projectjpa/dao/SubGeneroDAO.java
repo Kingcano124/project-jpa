@@ -8,7 +8,7 @@ public interface SubGeneroDAO {
 
     void save (SubGenero subGenero);
     void update (SubGenero subGenero);
-    void delete (SubGenero subGenero);
-    void findById(Long id);
+    void delete (Long id);
+    SubGenero findById(Long id);
     List<SubGenero> findAll();
 }

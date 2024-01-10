@@ -1,5 +1,7 @@
 package com.david.projectjpa.entity;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -15,6 +17,7 @@ public class SubGenero {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "idGenero")
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private Genero genero;
 
     @Column(name = "fechaCreacion")
